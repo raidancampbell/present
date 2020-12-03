@@ -107,7 +107,20 @@ class Slideshow(object):
         ):
             row = int(self.screen.height / 2) - elements[0].size
         else:
-            row = int(self.screen.height * 0.2)
+            s = 0
+            for e in elements:
+                s += e.size
+            # TODO: scaling function
+            # self.screen.height * 0.05 when s > 0.8 * self.screen.height,
+            # self.screen.height * 0.2 when s < 0.5 * self.screen.height
+            if s > 0.8 * self.screen.height:
+                row = int(self.screen.height * 0.05)
+            elif s > 0.6 * self.screen.height:
+                row = int(self.screen.height * 0.1)
+            elif s > 0.5 * self.screen.height:
+                row = int(self.screen.height * 0.15)
+            else:
+                row = int(self.screen.height * 0.2)
 
         pad = 2
         for e in elements:
